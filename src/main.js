@@ -1,24 +1,51 @@
 import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import { Graph } from './math/graph'
+import { Point } from './primitives/point'
+import { Segment } from './primitives/segment'
+import { GraphEditor } from './graph-Editor'
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
 
-setupCounter(document.querySelector('#counter'))
+
+const myCanvas = document.querySelector('#myCanvas')
+myCanvas.width = 800  
+myCanvas.height = 600
+
+const ctx = myCanvas.getContext("2d")
+
+
+ 
+const p1= new Point(200, 200)
+const p2= new Point(500, 200)
+const p3= new Point(400, 400)
+const p4= new Point(100, 300)
+
+const s1 = new Segment(p1, p2)
+const s2 = new Segment(p1, p3)
+const s3 = new Segment(p1, p4)    
+
+
+const graph = new Graph([p1, p2, p3, p4],[s1, s2, s3])
+const graphEditor = new GraphEditor(myCanvas, graph)
+
+animate()
+
+function animate() {
+  ctx.clearRect(0, 0, myCanvas.width, myCanvas.height)
+  graphEditor.display()
+  requestAnimationFrame(animate)
+}
+
+const globalVariables = {
+  p1,
+  p2,
+  p3,
+  p4,
+  s1,
+  s2,
+  s3,
+  graph,
+  graphEditor
+};
+
+// Asignar el objeto al objeto global window
+window.globalVariables = globalVariables;
