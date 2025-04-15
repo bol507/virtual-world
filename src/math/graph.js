@@ -65,6 +65,10 @@ export class Graph {
     return new Graph(points, segments)
   }
 
+  hash() {
+    return JSON.stringify(this)
+  }
+
   removePoint(point) {
     const segments = this.getSegmentsWithPoint(point)
     for (const seg of segments) {

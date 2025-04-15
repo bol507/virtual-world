@@ -67,6 +67,21 @@ export class Polygon {
    
   }
 
+  distanceToPoint(point) {
+    return Math.min(...this.segments.map( (s) => s.distanceToPoint(point)))
+  }
+
+  intersectsPoly(poly) {
+    for (let s1 of this.segments) {
+      for (let s2 of poly.segments) {
+        if (getIntersection(s1.p1, s1.p2, s2.p1, s2.p2)) { 
+          return true
+        }
+      } 
+    }
+    return false
+  } 
+
   containsSegment(seg){
     const midpoint = average(seg.p1, seg.p2)
     return this.containsPoint(midpoint)
@@ -88,6 +103,10 @@ export class Polygon {
     for (const seg of this.segments) {
       seg.draw(ctx, { color: getRanomColor(), width: 5 })
     }
+  }
+
+  distanceToPoly(poly) {
+    return Math.min(...this.points.map( (p) => poly.distanceToPoint(p)))
   }
 
   draw(ctx,{ stroke = "blue" , lineWidth = 2, fill = "rgba(0,0,255,0.1)" } = {}) {
