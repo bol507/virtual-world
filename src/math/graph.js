@@ -66,7 +66,17 @@ export class Graph {
   }
 
   hash() {
-    return JSON.stringify(this)
+    return JSON.stringify({
+      points: this.points.map(p => ({ x: p.x, y: p.y })),
+      segments: this.segments.map(s => ({
+        p1: { x: s.p1.x, y: s.p1.y },
+        p2: { x: s.p2.x, y: s.p2.y }
+      }))
+    })
+  }
+
+  hasData() {
+    return this.points.length > 0 && this.segments.length > 0
   }
 
   removePoint(point) {
@@ -82,8 +92,9 @@ export class Graph {
   }
 
   dispose() {
-    this.points.length = 0
-    this.segments.length = 0
+    console.log('Cleaning graph');
+    this.points.length = 0;
+    this.segments.length = 0;
   }
 
   draw(ctx) {

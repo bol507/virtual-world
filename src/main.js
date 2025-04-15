@@ -29,9 +29,9 @@ animate()
 
 function animate() {
   viewport.reset()
-  if(oldGraphHash != graph.hash()) {
-    world.generate()
-    oldGraphHash = graph.hash()
+  if (graph.hasData() && oldGraphHash !== graph.hash()) {
+    world.generate();
+    oldGraphHash = graph.hash();
   }
   const viewPoint = scale(viewport.getOffset(), -1)
   world.draw(ctx, viewPoint)
@@ -41,7 +41,7 @@ function animate() {
 }
 
 function dispose() {
-  graph.dispose()
+  graphEditor.dispose()
 }
 
 function save() {

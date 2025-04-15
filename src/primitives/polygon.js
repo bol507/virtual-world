@@ -1,4 +1,4 @@
-import { average, getIntersection, getRanomColor } from "../math/utils"
+import { average, getIntersection, getRandomColor } from "../math/utils"
 import { Point } from "./point"
 import { Segment } from "./segment"
 
@@ -101,7 +101,7 @@ export class Polygon {
 
   drawSegments(ctx) {
     for (const seg of this.segments) {
-      seg.draw(ctx, { color: getRanomColor(), width: 5 })
+      seg.draw(ctx, { color: getRandomColor(), width: 5 })
     }
   }
 

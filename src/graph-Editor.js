@@ -70,6 +70,7 @@ export class GraphEditor {
   }
 
   dispose() {
+    console.warn('cleaning graphEditor')
     this.graph.dispose()
     this.selected = null
     this.hovered = null
