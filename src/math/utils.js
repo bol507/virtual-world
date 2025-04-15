@@ -81,3 +81,7 @@ export const magnitude = (p) => {
 export const dot = (p1, p2) => {
   return p1.x * p2.x + p1.y * p2.y
 }
+
+export const lerp2D = (a, b, t) => {
+  return new Point(lerp(a.x, b.x, t), lerp(a.y, b.y, t))
+}
