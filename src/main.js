@@ -7,6 +7,7 @@ import { Viewport } from './viewport'
 import { Polygon } from './primitives/polygon'
 import { Envelope } from './primitives/envelope'
 import { World } from './world'
+import { scale } from './math/utils'
 
 
 
@@ -28,18 +29,19 @@ animate()
 
 function animate() {
   viewport.reset()
-  if(oldGraphHash != graph.hash()) {
-    world.generate()
-    oldGraphHash = graph.hash()
+  if (graph.hasData() && oldGraphHash !== graph.hash()) {
+    world.generate();
+    oldGraphHash = graph.hash();
   }
-  world.draw(ctx)
+  const viewPoint = scale(viewport.getOffset(), -1)
+  world.draw(ctx, viewPoint)
   ctx.globalAlpha = 0.03
   graphEditor.display()
   requestAnimationFrame(animate)
 }
 
 function dispose() {
-  graph.dispose()
+  graphEditor.dispose()
 }
 
 function save() {

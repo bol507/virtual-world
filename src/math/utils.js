@@ -61,7 +61,7 @@ export const lerp = (a, b, t) => {
   return a + (b - a) * t
 }
 
-export const getRanomColor = () => {
+export const getRandomColor = () => {
   const hue = 290 + Math.random() * 260;
   return "hsl(" + hue + ", 100%, 50%)"
 }
@@ -80,4 +80,15 @@ export const magnitude = (p) => {
 
 export const dot = (p1, p2) => {
   return p1.x * p2.x + p1.y * p2.y
+}
+
+export const lerp2D = (a, b, t) => {
+  return new Point(lerp(a.x, b.x, t), lerp(a.y, b.y, t))
+}
+
+export const getFake3dPoint = (point, viewPoint, height) => { 
+  const dir = normalize(subtract(point, viewPoint));
+  const dist = distance(point, viewPoint);
+  const scaler = Math.atan(dist / 300) / (Math.PI / 2);
+  return add(point, scale(dir, height * scaler));
 }
