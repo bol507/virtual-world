@@ -1,3 +1,5 @@
+import { Point } from "../primitives/point"
+
 export const getNearestPoint = (location, points, trheshold = Number.MAX_SAFE_INTEGER) => {  
   let minDist = Number.MAX_SAFE_INTEGER
   let nearest = null
@@ -11,6 +13,18 @@ export const getNearestPoint = (location, points, trheshold = Number.MAX_SAFE_IN
   return nearest
 }
 
-function distance(point1, point2) {
+const distance = (point1, point2) => {
   return Math.hypot(point1.x - point2.x, point1.y - point2.y)
+}
+
+export const add = (point1, point2) => {
+  return new Point(point1.x + point2.x, point1.y + point2.y)
+}
+
+export const subtract = (point1, point2) => {
+  return new Point(point1.x - point2.x, point1.y - point2.y)
+}
+
+export const scale = (point, factor) => {
+  return new Point(point.x * factor, point.y * factor)
 }

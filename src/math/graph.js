@@ -1,3 +1,6 @@
+import { Point } from "../primitives/point"
+import { Segment } from "../primitives/segment"
+
 export class Graph {
   constructor(points = [], segments= [],) {
     this.points = points
@@ -52,12 +55,26 @@ export class Graph {
     return segments
   }
 
+  static load(info) {
+    const points = info.points.map((p) => new Point(p.x, p.y))
+    const segments = info.segments.map((s) => new Segment(
+      points.find((p) => p.equals(s.p1)),
+      points.find((p) => p.equals(s.p2))  
+    ))
+    
+    return new Graph(points, segments)
+  }
+
   removePoint(point) {
     const segments = this.getSegmentsWithPoint(point)
     for (const seg of segments) {
       this.removeSegment(seg)
     }
-    this.points.splice(this.points.indexOf(point), 1)
+    const index = this.points.indexOf(point)
+    if (index !== -1) {
+      this.points.splice(index, 1)
+    }
+    
   }
 
   dispose() {
